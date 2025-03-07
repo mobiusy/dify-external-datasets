@@ -2,9 +2,8 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [main] # 触发分支（如 main/master）
     tags: # 可选：触发镜像版本标签
-      - "v1.0.3"
+      - "v*.*.*"
 
 jobs:
   build-and-push:
