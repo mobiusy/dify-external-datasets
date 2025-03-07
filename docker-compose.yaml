@@ -1,0 +1,11 @@
+version: '3'
+services:
+  dify-external-datasets:
+    build: .
+    image: mobiuskai/dify-external-datasets:1.0.3
+    ports:
+      - "18121:8080"
+    env_file:
+      - .env
+    restart: always
+    container_name: dify-external-datasets-service
