@@ -1,0 +1,33 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [main] # 触发分支（如 main/master）
+    tags: # 可选：触发镜像版本标签
+      - "v1.0.3"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_HUB_REPO }}:latest
+            ${{ secrets.DOCKER_HUB_REPO }}:${{ github.ref_name }}
+          # 若需多架构构建（如 amd64/arm64）：
+          # platforms: linux/amd64,linux/arm64

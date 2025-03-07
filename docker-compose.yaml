@@ -2,7 +2,7 @@ version: '3'
 services:
   dify-external-datasets:
     build: .
-    image: mobiuskai/dify-external-datasets:1.0.3
+    image: mobiuskai/dify-external-datasets:latest
     ports:
       - "18121:8080"
     env_file:
